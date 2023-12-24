@@ -19,3 +19,6 @@ const idData = new Schema({
 },
     {timestamps: true}
 );
+
+const Details = model('details', ocrSchema);
+module.exports = Details;
