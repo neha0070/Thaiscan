@@ -1,7 +1,6 @@
 require('dotenv').config();
 const vision = require('@google-cloud/vision');
 const fs = require('fs'); 
-const credentialKey = JSON.parse(process.env.credentialkey);
 
 async function getData(imagePath, CredentialPath) {
     try {
@@ -85,6 +84,7 @@ const convertToDate = (dateString) => {
     const month = monthIndex.toString().padStart(2, '0');
     return `${parts[2]}-${month}-${parts[0].toString().padStart(2, '0')}`;
 };
+
 module.exports = {
     getData
 };
