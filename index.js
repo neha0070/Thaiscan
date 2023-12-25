@@ -1,33 +1,24 @@
 require('dotenv').config();
 
 const mongoose = require('mongoose');
-const path = require("path");
+
+
 const express = require('express');
+const {resolve} = require("path");
 const app = express();
 
 mongoose.connect('mongodb://localhost:27017/thaiscan')
 .then(() => console.log('Database Connected successfully'));
 
-const DetailRoute = require('./Routes/detail');
+
+// Set Views
+app.set('view engine', 'ejs');
+app.set('views', resolve('./views'));
 
 app.get('/', async (req, res) => {
     return  res.render('home');
 });
 
-app.use('/detail', DetailRoute);
-
-const textextract = require('./services/textextract');
-const credentialpath = './credential.json';
-const imagePath = './idcard.jpg_large';
-async function processImage() {
-    try {
-        const extractedData = await textextract.getData(imagePath, credentialpath);
-        console.log(extractedData);
-    } catch (error) {
-        console.error('Error processing the image:', error.message);
-    }
-};
-processImage();
 
 
 const port = process.env.PORT || 8000;

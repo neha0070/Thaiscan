@@ -1,4 +1,3 @@
-
 const { Details } = require('../models/detail');
 const {getData} = require('../services/textextract');
 
