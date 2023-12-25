@@ -7,6 +7,8 @@ const express = require('express');
 const {resolve} = require("path");
 const app = express();
 
+const detailRoute = require('./routes/detail');
+
 mongoose.connect('mongodb://localhost:27017/thaiscan')
 .then(() => console.log('Database Connected successfully'));
 
@@ -19,6 +21,7 @@ app.get('/', async (req, res) => {
     return  res.render('home');
 });
 
+app.use('/detail', detailRoute);
 
 
 const port = process.env.PORT || 8000;

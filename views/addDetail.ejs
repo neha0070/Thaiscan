@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./helpers/head') %>
+    <title>MainPage</title>
+</head>
+<body>
+<%- include('./helpers/navbar') %>
+
+<div class="container mt-3">
+    <form id="fileUploadForm" action="/detail/add" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="ipImage" class="form-label"></label>
+            <input type="file" class="form-control" id="ipImage" name="ipImage" aria-describedby="ipImage">
+            <br />
+            <span id="fileError" style="color: red;"></span>
+        </div>
+        <div class="mb-3">
+            <button type="button" onclick="uploadFile()" class="btn btn-primary">Add</button>
+        </div>
+    </form>
+
+    <% if(locals.detail) { %>
+        <h5>Identification No. : <%= detail.identification_number %></h5>
+        <h5>Name : <%= detail.name%></h5>
+        <h5>Last Name : <%= detail.last_name%></h5>
+        <h5>Date of Birth : <%= detail.date_of_birth%></h5>
+        <h5>Date of Issue : <%= detail.date_of_issue%></h5>
+        <h5>Date of Expiry : <%= detail.date_of_expiry%></h5>
+    <% } %>
+</div>
+
+
+
+<%- include('./helpers/scripts') %>
+</body>
+</html>

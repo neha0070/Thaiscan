@@ -6,7 +6,7 @@ async function addDetail(req, res) {
 
     const detail = await Details.create({
         status: extracted.status,
-        inputImageURL:  `/Images/${req.file.filename}`,
+        ipImage:  `/Images/${req.file.filename}`,
         identification_number: extracted.identification_number,
         name: extracted.name,
         last_name: extracted.last_name,
@@ -14,8 +14,25 @@ async function addDetail(req, res) {
         date_of_issue: extracted.date_of_issue,
         date_of_expiry: extracted.date_of_expiry
     });
-    console.log(detail);
-    return res.render('add', {
+
+    return res.render('addDetail', {
         detail: detail,
     });
+}
+
+async function showAddDetail(req, res) {
+    return res.render('addDetail');
+}
+
+async function showLogs(req, res) {
+    const details = await Details.find({});
+    res.render('logs', {
+        details: details,
+    })
+}
+
+module.exports = {
+    addDetail,
+    showAddDetail,
+    showLogs,
 }

@@ -1,12 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const { upload } = require('../middleware/upload');
-const { addDetail, editDetail, deleteDetail } = require('../controllers/detail');
+const { addDetail, showAddDetail, showLogs } = require('../controllers/detail');
+
+
+router.get('/add', showAddDetail);
+router.get('/logs', showLogs)
 
 
 // input image is frontend input image
 router.post('/add', upload.single('ipImage'), addDetail);
-router.post('/edit/:recordId', editDetail);
-router.get('/delete/:recordId', deleteDetail);
+// router.post('/edit/:detailId', editDetail);
+// router.get('/delete/:detailId', deleteDetail);
 
 module.exports = router;

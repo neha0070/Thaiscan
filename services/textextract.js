@@ -36,7 +36,7 @@ async function extract(text){
     const identification_number = idNumberMatch ? idNumberMatch[0] : null;
 
     // Extract Name
-    const nameMatch = text.match(/Name Miss (.+?)\n/);
+    const nameMatch = text.match(/Name (.+?)\n/);
     const name = nameMatch ? nameMatch[1] : null;
 
     // Extract Last Name
@@ -79,6 +79,7 @@ async function extract(text){
 
 }
 const convertToDate = (dateString) => {
+    if (dateString === null) return '';
     const parts = dateString.split(' ');
     const monthIndex = ['Jan.', 'Feb.', 'Mar.', 'Apr..', 'May.', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'].indexOf(parts[1]) + 1;
     const month = monthIndex.toString().padStart(2, '0');
