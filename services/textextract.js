@@ -16,14 +16,9 @@ async function getData(imagePath, CredentialPath) {
 
         // Extract relevant information
         const textAnnotations = result.textAnnotations;
-
-        if (textAnnotations && textAnnotations.length > 0) {
-            const description = textAnnotations[0].description;
-            return await extract(description);
-        } else {
-            console.error('No text annotations found.');
-            return null;
-        }
+        
+        const description = textAnnotations[0].description;
+        return await extract(description);
     } catch (error) {
         console.error('Error', error);
         return null;
@@ -45,7 +40,17 @@ async function extract(text){
 
     // Extract Dates
     const dateMatches = text.match(/(\d{1,2} [A-Za-z]+\.* \d{4})/g);
-
+    if (dateMatches === null || dateMatches.length !== 3) {
+        return {
+            status: 'UNSUCCESSFUL',
+            identification_number,
+            name,
+            last_name,
+            date_of_birth: '',
+            date_of_issue: '',
+            date_of_expiry: ''
+        };
+    }
     // Assign dates to variables
     const date_of_birth = dateMatches ? convertToDate(dateMatches[0]) : null;
     const date_of_issue = dateMatches ? convertToDate(dateMatches[1]) : null;
@@ -78,12 +83,18 @@ async function extract(text){
     };
 
 }
+
 const convertToDate = (dateString) => {
-    if (dateString === null) return '';
-    const parts = dateString.split(' ');
-    const monthIndex = ['Jan.', 'Feb.', 'Mar.', 'Apr..', 'May.', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'].indexOf(parts[1]) + 1;
-    const month = monthIndex.toString().padStart(2, '0');
-    return `${parts[2]}-${month}-${parts[0].toString().padStart(2, '0')}`;
+    try{
+        if (dateString === null) return '';
+        const parts = dateString.split(' ');
+        const monthIndex = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May.', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'].indexOf(parts[1]) + 1;
+        const month = monthIndex.toString().padStart(2, '0');
+        return `${parts[2]}-${month}-${parts[0].toString().padStart(2, '0')}`;
+    }catch (error) {
+        console.log('error while converting to Date', error);
+        return '';
+    }
 };
 
 module.exports = {

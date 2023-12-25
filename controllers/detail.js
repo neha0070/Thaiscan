@@ -3,7 +3,7 @@ const {getData} = require('../services/textextract');
 const fs = require("fs");
 
 async function addDetail(req, res) {
-    const extracted = await getData(`./UserData/Images/${req.file.filename}`, './credential.json');
+    const extracted = await getData(`./UserData/Images/${req.file.filename}`, './.railway/credential.json');
 
     const detail = await Details.create({
         status: extracted.status,

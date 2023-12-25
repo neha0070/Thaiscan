@@ -131,4 +131,4 @@ dist
 .pnp.*
 
 # Ignore credentialkey.json file
-credential.json
+.railway/
