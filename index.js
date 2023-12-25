@@ -8,7 +8,7 @@ const app = express();
 const detailRoute = require('./routes/detail');
 const path = require("path");
 
-mongoose.connect('mongodb+srv://jainnehal:jainnehal@cluster0.qpno7se.mongodb.net/Thaiscan?retryWrites=true&w=majority')
+mongoose.connect(process.env.database_url)
 .then(() => console.log('Database Connected successfully'));
 
 app.use(express.urlencoded({extended: false}));
