@@ -1,8 +1,6 @@
 require('dotenv').config();
 
 const mongoose = require('mongoose');
-
-
 const express = require('express');
 const {resolve} = require("path");
 const app = express();
@@ -10,7 +8,7 @@ const app = express();
 const detailRoute = require('./routes/detail');
 const path = require("path");
 
-mongoose.connect('mongodb://localhost:27017/thaiscan')
+mongoose.connect('mongodb+srv://jainnehal:jainnehal@cluster0.qpno7se.mongodb.net/Thaiscan?retryWrites=true&w=majority')
 .then(() => console.log('Database Connected successfully'));
 
 app.use(express.urlencoded({extended: false}));
@@ -25,8 +23,6 @@ app.get('/', async (req, res) => {
 });
 
 app.use('/detail', detailRoute);
-
-
 
 const port = process.env.PORT || 8000;
 
