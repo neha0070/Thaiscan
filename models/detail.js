@@ -1,14 +1,13 @@
 const {Schema , model} = require('mongoose');
 
 const idData = new Schema({
-    inputImage: {
+    ipImage: {
         type: String,
         required: true,
     },
     status: {
         type: String,
-        enum: ['SUCCESS', 'FAILURE'],
-        default: 'SUCCESS',
+        enum: ['SUCCESS', 'UNSUCCESFUL']
     },
     identification_number: { type: String },
     name: { type: String },
@@ -21,4 +20,4 @@ const idData = new Schema({
 );
 
 const Details = model('details', idData);
-module.exports = Details;
+module.exports = {Details};

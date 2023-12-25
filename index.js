@@ -5,7 +5,7 @@ const path = require("path");
 const express = require('express');
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017')
+mongoose.connect('mongodb://localhost:27017/thaiscan')
 .then(() => console.log('Database Connected successfully'));
 
 const DetailRoute = require('./Routes/detail');
@@ -14,7 +14,7 @@ app.get('/', async (req, res) => {
     return  res.render('home');
 });
 
-app.use('/record', DetailRoute);
+app.use('/detail', DetailRoute);
 
 const textextract = require('./services/textextract');
 const credentialpath = './credential.json';
