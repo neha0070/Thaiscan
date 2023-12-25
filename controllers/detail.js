@@ -31,8 +31,33 @@ async function showLogs(req, res) {
     })
 }
 
+async function showEditDetail(req, res) {
+    const detail = await Details.findById(req.params.detailId);
+    return res.render('editDetail', {
+        detail: detail,
+    })
+}
+
+async function updateEditDetails(req, res) {
+    console.log(req.body);
+    const {identification_number, name, last_name, date_of_birth, date_of_issue, date_of_expiry} = req.body;
+    const toUpdate = {};
+    if(identification_number !== '') toUpdate.identification_number = identification_number;
+    if(name !== '') toUpdate.name = name;
+    if(last_name !== '') toUpdate.last_name = last_name;
+    if(date_of_birth !== '') toUpdate.date_of_birth = date_of_birth;
+    if(date_of_issue !== '') toUpdate.date_of_issue = date_of_issue;
+    if(date_of_expiry !== '') toUpdate.date_of_expiry = date_of_expiry;
+
+    const detail  = await Details.findByIdAndUpdate(req.params.detailId,toUpdate)
+
+    return res.redirect('/');
+}
+
 module.exports = {
     addDetail,
     showAddDetail,
     showLogs,
+    showEditDetail,
+    updateEditDetails
 }
