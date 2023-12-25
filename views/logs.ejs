@@ -6,7 +6,34 @@
 </head>
 <body>
 <%- include('./helpers/navbar') %>
-<pre><%= details%></pre>
+<div class="container mt-3">
+    <% details.forEach(detail => { %>
+        <div class="col">
+            <div class="card col" style="width: 18rem">
+                <div class="card-body">
+                    <%if(detail.status === 'SUCCESS') {%>
+                        <h5 class="card-title text-success"><%= detail.status %></h5>
+                    <%}else {%>
+                        <h5 class="card-title text-danger"><%= detail.status %></h5>
+                    <%}%>
+                        <h7>Id : <%= detail.identification_number %></h7>
+                        <br>
+                        <h7>Name : <%= detail.name%></h7>
+                        <br>
+                        <h7>Last Name : <%= detail.last_name%></h7>
+                        <br>
+                        <h7>Date of Birth : <%= detail.date_of_birth%></h7>
+                        <br>
+                        <h7>Date of Issue : <%= detail.date_of_issue%></h7>
+                        <br>
+                        <h7>Date of Expiry : <%= detail.date_of_expiry%></h7>
+
+                    <a href="/detail/delete/<%= detail._id %>" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    <% }) %>
+</div>
 <%- include('./helpers/scripts') %>
 </body>
 </html>

@@ -1,5 +1,6 @@
 const { Details } = require('../models/detail');
 const {getData} = require('../services/textextract');
+const fs = require("fs");
 
 async function addDetail(req, res) {
     const extracted = await getData(`./UserData/Images/${req.file.filename}`, './credential.json');
@@ -39,7 +40,6 @@ async function showEditDetail(req, res) {
 }
 
 async function updateEditDetails(req, res) {
-    console.log(req.body);
     const {identification_number, name, last_name, date_of_birth, date_of_issue, date_of_expiry} = req.body;
     const toUpdate = {};
     if(identification_number !== '') toUpdate.identification_number = identification_number;
@@ -54,10 +54,17 @@ async function updateEditDetails(req, res) {
     return res.redirect('/');
 }
 
+async function deleteDetail(req, res) {
+    const detail = await Details.findByIdAndDelete(req.params.detailId);
+    fs.unlink(`./UserData/${detail.ipImage}`, () => {});
+    return res.redirect('/detail/logs');
+}
+
 module.exports = {
     addDetail,
     showAddDetail,
     showLogs,
     showEditDetail,
-    updateEditDetails
+    updateEditDetails,
+    deleteDetail,
 }

@@ -68,7 +68,7 @@ async function extract(text){
         };
     }
     return {
-        status: 'FAILURE',
+        status: 'UNSUCCESSFUL',
         identification_number,
         name,
         last_name,

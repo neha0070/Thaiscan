@@ -7,7 +7,7 @@ const idData = new Schema({
     },
     status: {
         type: String,
-        enum: ['SUCCESS', 'UNSUCCESFUL']
+        enum: ['SUCCESS', 'UNSUCCESSFUL']
     },
     identification_number: { type: String },
     name: { type: String },
